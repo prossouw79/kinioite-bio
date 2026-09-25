@@ -1,6 +1,6 @@
 FEDORA_VERSION ?= 44
-IMAGE_REF      ?= ghcr.io/prossouw-bioinformatico/bioinformatico-ostree
-LOCAL_IMAGE    ?= localhost/bioinformatico-ostree:latest
+IMAGE_REF      ?= ghcr.io/prossouw79/kinoite-bio
+LOCAL_IMAGE    ?= localhost/prossouw79-ostree:latest
 BIB_IMAGE      ?= quay.io/centos-bootc/bootc-image-builder:latest
 OUTPUT         ?= output
 CACHE          ?= cache
@@ -67,8 +67,8 @@ build-fresh: check-dns
 
 lint:
 	podman run --rm -v ./:/mnt:ro,Z -w /mnt docker.io/koalaman/shellcheck:stable \
-		build_files/*.sh system_files/usr/libexec/bioinformatico-flatpaks \
-		system_files/usr/bin/bioinformatico-user-setup
+		build_files/*.sh system_files/usr/libexec/prossouw79-flatpaks \
+		system_files/usr/bin/prossouw79-user-setup
 
 # bootc-image-builder runs as root and reads the image from root's container storage.
 # /store (osbuild's cache, including downloaded RPMs) and /rpmmd (DNF metadata) persist in
@@ -81,7 +81,7 @@ lint:
 # unload it for the duration of the build and reload it afterwards, even on failure or Ctrl-C.
 BWRAP_PROFILE = /etc/apparmor.d/bwrap-userns-restrict
 # bootc-image-builder picks its own file name, so rename it to something predictable
-ISO_FILE = $(OUTPUT)/bootiso/bioinformatico-ostree-$(FEDORA_VERSION).iso
+ISO_FILE = $(OUTPUT)/bootiso/prossouw79-ostree-$(FEDORA_VERSION).iso
 
 define bib
 	mkdir -p $(OUTPUT) $(CACHE)/store $(CACHE)/rpmmd

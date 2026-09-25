@@ -1,11 +1,11 @@
 [Unit]
-Description=Install Flatpaks from /usr/share/bioinformatico/flatpaks.list
+Description=Install Flatpaks from /usr/share/prossouw79/flatpaks.list
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/libexec/bioinformatico-flatpaks
+ExecStart=/usr/libexec/prossouw79-flatpaks
 Restart=on-failure
 RestartSec=60
 

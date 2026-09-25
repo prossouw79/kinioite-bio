@@ -1,7 +1,7 @@
-# bioinformatico-ostree
+# prossouw79-ostree
 
 My Fedora Kinoite, as a bootable container image. GitHub Actions rebuilds it on every push and
-daily, publishing to `ghcr.io/prossouw-bioinformatico/bioinformatico-ostree`. Installed machines
+daily, publishing to `ghcr.io/prossouw79/kinoite-bio`. Installed machines
 pull the new image through Discover's updates or `sudo bootc upgrade`.
 
 ## What's in it
@@ -9,8 +9,8 @@ pull the new image through Discover's updates or `sudo bootc upgrade`.
 | Where | What |
 |---|---|
 | Image (`Containerfile`) | 1Password + 1Password CLI, Chrome, Edge, VS Code, git, zsh, tmux, htop, bmon, gource, virt-manager + libvirt/qemu, Handy |
-| Flatpaks (`system_files/usr/share/bioinformatico/flatpaks.list`) | GitKraken, Obsidian, Ferdium, LocalSend, Podman Desktop, FreeFileSync. Installed by `bioinformatico-flatpaks.service` on boot whenever the list changes |
-| Per user (`bioinformatico-user-setup`) | libvirt group membership, `dev` toolbox with gcc/make/gdb |
+| Flatpaks (`system_files/usr/share/prossouw79/flatpaks.list`) | GitKraken, Obsidian, Ferdium, LocalSend, Podman Desktop, FreeFileSync. Installed by `prossouw79-flatpaks.service` on boot whenever the list changes |
+| Per user (`prossouw79-user-setup`) | libvirt group membership, `dev` toolbox with gcc/make/gdb |
 
 1Password, its CLI and the browsers are in the image (not Flatpaks) so CLI integration, browser
 unlock and the SSH agent work. Their `/opt` contents are moved to `/usr/lib/opt` and linked back
@@ -23,21 +23,21 @@ build (`build_files/configure.sh`), so add any new one to that list too. To add 
 
 ## Installing
 
-**Fresh install from ISO:** `make iso` builds `output/bootiso/bioinformatico-ostree-44.iso` from a local build
+**Fresh install from ISO:** `make iso` builds `output/bootiso/prossouw79-ostree-44.iso` from a local build
 (`make iso-remote` uses the published image instead). The installer only asks about the disk. Plasma Setup
 creates your user on first boot, and the installed system already tracks the GHCR image.
 
 **Switching an existing Kinoite install:**
 
 ```
-sudo bootc switch ghcr.io/prossouw-bioinformatico/bioinformatico-ostree:latest
+sudo bootc switch ghcr.io/prossouw79/kinoite-bio:latest
 systemctl reboot
 ```
 
-Then, once, as your user: `bioinformatico-user-setup`.
+Then, once, as your user: `prossouw79-user-setup`.
 
 The GHCR package is private by default. Either make it public (GitHub → Packages →
-bioinformatico-ostree → Package settings) or put a pull token in `/etc/ostree/auth.json`.
+prossouw79-ostree → Package settings) or put a pull token in `/etc/ostree/auth.json`.
 
 ## Updates and rollback
 
@@ -54,12 +54,12 @@ bootc status
    `COSIGN_PASSWORD`). Commit `cosign.pub` and never commit `cosign.key`.
 3. Push. CI signs each image, and the image now carries a policy that rejects unsigned updates.
 4. On each machine, switch once more so the signature check is enforced:
-   `sudo bootc switch --enforce-container-sigpolicy ghcr.io/prossouw-bioinformatico/bioinformatico-ostree:latest`
+   `sudo bootc switch --enforce-container-sigpolicy ghcr.io/prossouw79/kinoite-bio:latest`
 
 ## Local build
 
 ```
-make build   # rootless podman, tags localhost/bioinformatico-ostree:latest
+make build   # rootless podman, tags localhost/prossouw79-ostree:latest
 make lint    # shellcheck
 ```
 

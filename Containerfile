@@ -52,7 +52,7 @@ COPY system_files /
 
 # Users allowed to approve 1Password CLI / SSH agent requests (space-separated)
 ARG ONEPASSWORD_USERS=pieter
-ARG IMAGE_REF=ghcr.io/prossouw-bioinformatico/bioinformatico-ostree
+ARG IMAGE_REF=ghcr.io/prossouw79/kinoite-bio
 RUN --mount=type=bind,from=config,source=/,target=/ctx \
     ONEPASSWORD_USERS="${ONEPASSWORD_USERS}" IMAGE_REF="${IMAGE_REF}" /ctx/build_files/configure.sh
 

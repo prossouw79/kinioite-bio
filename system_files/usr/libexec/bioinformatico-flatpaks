@@ -2,8 +2,8 @@
 # Installs the image's Flatpak list once per change to that list.
 set -euo pipefail
 
-list=/usr/share/bioinformatico/flatpaks.list
-stamp=/var/lib/bioinformatico/flatpaks.sha256
+list=/usr/share/prossouw79/flatpaks.list
+stamp=/var/lib/prossouw79/flatpaks.sha256
 want=$(sha256sum "$list" | cut -d' ' -f1)
 [[ -f $stamp && $(<"$stamp") == "$want" ]] && exit 0
 

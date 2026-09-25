@@ -16,7 +16,7 @@ sed "s|\${POLICY_OWNERS}|${owners% }|" /usr/lib/opt/1Password/com.1password.1Pas
 [[ $(stat -c '%g %A' /usr/lib/opt/1Password/1Password-BrowserSupport) == "880 "*s* ]]
 
 ### Services
-systemctl enable bioinformatico-flatpaks.service
+systemctl enable prossouw79-flatpaks.service
 systemctl enable virtqemud.socket virtnetworkd.socket virtstoraged.socket \
   virtnodedevd.socket virtsecretd.socket virtinterfaced.socket virtnwfilterd.socket
 systemctl --global enable podman.socket
@@ -35,4 +35,4 @@ sed -i 's/^enabled=1/enabled=0/' \
 ### /var from the image only reaches a machine on a fresh install (not on `bootc switch`),
 # so have systemd create the state directories these packages expect at boot.
 find /var/lib/libvirt /var/lib/iscsi /var/lib/swtpm-localca -type d \
-  -printf 'd %p %m %u %g - -\n' > /usr/lib/tmpfiles.d/bioinformatico-var.conf
+  -printf 'd %p %m %u %g - -\n' > /usr/lib/tmpfiles.d/prossouw79-var.conf
