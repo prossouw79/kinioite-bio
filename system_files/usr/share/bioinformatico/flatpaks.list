@@ -1,0 +1,7 @@
+# Flathub app IDs installed system-wide on boot. Changing this list re-runs the install.
+com.axosoft.GitKraken
+md.obsidian.Obsidian
+org.ferdium.Ferdium
+org.localsend.localsend_app
+io.podman_desktop.PodmanDesktop
+org.freefilesync.FreeFileSync

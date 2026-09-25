@@ -1,0 +1,4 @@
+output/
+cache/
+cosign.key
+*.log

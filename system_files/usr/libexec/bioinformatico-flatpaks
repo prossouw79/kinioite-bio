@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+# Installs the image's Flatpak list once per change to that list.
+set -euo pipefail
+
+list=/usr/share/bioinformatico/flatpaks.list
+stamp=/var/lib/bioinformatico/flatpaks.sha256
+want=$(sha256sum "$list" | cut -d' ' -f1)
+[[ -f $stamp && $(<"$stamp") == "$want" ]] && exit 0
+
+flatpak remote-add --system --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak remote-modify --system --enable flathub
+mapfile -t apps < <(grep -vE '^[[:space:]]*(#|$)' "$list")
+flatpak install --system -y --noninteractive --or-update flathub "${apps[@]}"
+
+mkdir -p "${stamp%/*}"
+echo "$want" > "$stamp"

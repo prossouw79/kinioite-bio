@@ -1,0 +1,12 @@
+output/
+cache/
+cosign.key
+.git/
+*.log
+# Not used by the image build; keeps edits to these from invalidating the config layer
+README.md
+Makefile
+disk_config/
+.github/
+.gitignore
+.containerignore

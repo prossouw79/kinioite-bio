@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+# Per-user setup that can't be baked into the image. Run once as your normal user.
+set -euo pipefail
+
+# Groups shipped by packages live in /usr/lib/group; usermod needs them in /etc/group.
+add_to_group() {
+  local g="$1"
+  grep -q "^${g}:" /etc/group || grep "^${g}:" /usr/lib/group | sudo tee -a /etc/group >/dev/null
+  sudo usermod -aG "$g" "$USER"
+}
+
+echo "==> Adding $USER to libvirt"
+add_to_group libvirt
+
+echo "==> Creating 'dev' toolbox with build tools"
+toolbox list --containers | grep -qw dev || toolbox create -y dev
+toolbox run -c dev sudo dnf install -y gcc gcc-c++ make automake autoconf libtool pkgconf-pkg-config gdb
+
+cat <<'MSG'
+
+Done. Log out and back in for the libvirt group to apply.
+In 1Password: Settings > Developer > "Integrate with 1Password CLI" (and "Use the SSH agent"),
+and Settings > Browser > "Connect with 1Password in the browser".
+MSG

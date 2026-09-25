@@ -1,0 +1,13 @@
+[Unit]
+Description=Install Flatpaks from /usr/share/bioinformatico/flatpaks.list
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/bioinformatico-flatpaks
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target
